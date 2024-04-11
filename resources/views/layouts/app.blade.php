@@ -56,7 +56,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{url('/home')}}" class="dropdown-item">Inicio</a>
+                                    <a href="{{route('home')}}" class="dropdown-item">Inicio</a>
                                     <a href="{{route('flocks.index')}}" class="dropdown-item">Ver Aves</a>
                                     <a href="{{route('eggs.index')}}" class="dropdown-item">Ver huevos</a>
                                     <a href="{{route('feeds.index')}}" class="dropdown-item">Ver alimentos</a>

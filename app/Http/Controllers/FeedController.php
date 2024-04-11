@@ -43,9 +43,9 @@ class FeedController extends Controller
             'quantity' => 'required|numeric',
             'additional_notes' => 'nullable|string',
         ]);
-    
+
         Feed::create($validatedData);
-    
+
         return redirect()->route('feeds.index')->with('success', 'Feed added successfully');
     }
 
@@ -89,10 +89,10 @@ class FeedController extends Controller
             'quantity' => 'required|numeric',
             'additional_notes' => 'nullable|string',
         ]);
-    
+
         $feed = Feed::findOrFail($id);
         $feed->update($validatedData);
-    
+
         return redirect()->route('feeds.index')->with('success', 'Feed updated successfully');
     }
 
@@ -108,5 +108,43 @@ class FeedController extends Controller
         $feed->delete();
 
         return redirect()->route('feeds.index')->with('success', 'Feed deleted successfully');
+    }
+
+    public function showAdjustForm()
+    {
+        $feeds = Feed::all();
+        return view('feeds.adjust-quantity', compact('feeds'));
+    }
+
+    public function adjustQuantity(Request $request, $id)
+    {
+        // Validar la solicitud
+        $validatedData = $request->validate([
+            'adjustment_type' => 'required|in:add,subtract', // 'add' para sumar, 'subtract' para restar
+            'quantity' => 'required|numeric|min:0', // La cantidad a ajustar debe ser un número positivo
+        ]);
+
+        // Obtener el feed
+        $feed = Feed::findOrFail($id);
+
+        // Ajustar la cantidad según el tipo de ajuste
+        if ($validatedData['adjustment_type'] == 'add') {
+            $feed->quantity += $validatedData['quantity'];
+        } else if ($validatedData['adjustment_type'] == 'subtract') {
+            // Verifica que la resta no haga que la cantidad sea negativa
+            if ($feed->quantity >= $validatedData['quantity']) {
+                $feed->quantity -= $validatedData['quantity'];
+            } else {
+                // Si el ajuste es mayor que la cantidad disponible, puedes manejar el error de forma personalizada
+                return redirect()->route('feeds.show', $id)
+                    ->withErrors('No puedes restar más cantidad de la que está disponible.');
+            }
+        }
+
+        // Guardar los cambios
+        $feed->update();
+
+        // Redireccionar a la vista del feed con un mensaje de éxito
+        return redirect()->route('feeds.show', $id)->with('success', 'Cantidad ajustada correctamente');
     }
 }

@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a href="{{route('feeds.adjust')}}">Addición</a>
+        </div>
+        <div class="col-6">
+            <a href="{{route('feeds.adjust')}}">Reducción</a>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-12">
             <h1>Lista de Alimentos</h1>
