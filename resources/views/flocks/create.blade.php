@@ -4,14 +4,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="POST" action="{{route('store')}}">
+            <h1>Agregar nuevo lote</h1>
+
+            <form method="POST" action="{{route('flocks.store')}}">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nombre</label>
+                    <label for="name" class="form-label">Nombre lote</label>
                     <input type="text" class="form-control" placeholder="Ingresa el nombre" name="name">
                 </div>
                 <div class="mb-3">
-                    <label for="number_of_chickens" class="form-label">Número de crías</label>
+                    <label for="number_of_chickens" class="form-label">Número de gallinas</label>
                     <input type="number" class="form-control" placeholder="Ingresa el nombre" name="number_of_chickens">
                 </div>
                 <div class="mb-3">

@@ -24,7 +24,12 @@
                         @foreach ($eggs as $egg)
                             <tr>
                                 <td>{{ $egg->id }}</td>
-                                <td>{{ $egg->collection_range }}</td>
+                                <td>
+                                    <span class="p-1 {{ $egg->collection_range === 'notSpecified' ? 'badge badge-info' : 'badge badge-success'}}">
+                                        {{ $egg->collection_range === 'notSpecified' ? 'No específico': 'Lote específico' }}
+
+                                    </span>
+                                </td>
                                 <td>{{ $egg->collection_date }}</td>
                                 <td>{{ $egg->good_eggs }}</td>
                                 <td>{{ $egg->bad_eggs }}</td>

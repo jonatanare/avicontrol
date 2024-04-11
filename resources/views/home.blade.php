@@ -24,7 +24,7 @@
                         <img src="{{asset('/img/alimentos_para_aves_inventario.png')}}" alt="Gallina inventario" />
                     </div>
 
-                    <a href="/flocks"><h2>Alimentos</h2></a>
+                    <a href="/feeds"><h2>Alimentos</h2></a>
                 </div>
             </section>
         </div>

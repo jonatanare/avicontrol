@@ -76,9 +76,10 @@ class FlockController extends Controller
      * @param  \App\Flock  $flock
      * @return \Illuminate\Http\Response
      */
-    public function show(Flock $flock)
+    public function show($id)
     {
-        //
+        $flock = Flock::findOrFail($id);
+        return view('flocks.show')->witch(compact('flock'));
     }
 
     /**
@@ -87,9 +88,10 @@ class FlockController extends Controller
      * @param  \App\Flock  $flock
      * @return \Illuminate\Http\Response
      */
-    public function edit(Flock $flock)
+    public function edit($id)
     {
-        //
+        $flock = Flock::findOrFail($id);
+        return view('flocks.edit')->witch(compact('flock'));
     }
 
     /**
@@ -110,8 +112,11 @@ class FlockController extends Controller
      * @param  \App\Flock  $flock
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Flock $flock)
+    public function destroy($id)
     {
-        //
+        $flock = Flock::findOrFail($id);
+        $flock->delete();
+
+        return redirect('/flocks');
     }
 }
