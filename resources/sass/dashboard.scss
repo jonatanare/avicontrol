@@ -1,0 +1,21 @@
+.dashboard {
+    
+    &__card {
+        border-radius: 1px;
+        max-width: 250px;
+
+        img {
+            border-radius: 16px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: black;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 14px;
+        }
+    }
+}

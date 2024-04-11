@@ -11,13 +11,21 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/flocks', 'FlockController@index')->name('flocks');
-Route::get('/create', 'FlockController@create')->name('create');
-Route::post('/create', 'FlockController@store')->name('store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/flocks', 'FlockController@index')->name('flocks');
+    Route::get('/create', 'FlockController@create')->name('create');
+    Route::post('/create', 'FlockController@store')->name('store');
+
+    // Rutas eggs
+    Route::resource('eggs', EggController::class);
+
+});
+

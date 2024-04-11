@@ -1,51 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container dashboard">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12">
             <section class="d-flex justify-content-between">
-                <div class="card">
-                    <div class="card-header">Flock</div>
-    
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-    
-                        You are logged in!
+                <div class="dashboard__card">
+                    <div class="">
+                        <img src="{{asset('/img/gallina_inventario.png')}}" alt="Gallina inventario" />
                     </div>
-                    <div class="card-footer">
-                        <a class="btn btn-primary" href="{{ route('create')}}">Crear</a>
-                    </div>
+
+                    <a href="/flocks"><h2>Gallinas</h2></a>
                 </div>
-                <div class="card">
-                    <div class="card-header">Flock</div>
-    
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-    
-                        You are logged in!
+                <div class="dashboard__card">
+                    <div class="">
+                        <img src="{{asset('/img/huevos_inventario.png')}}" alt="Gallina inventario" />
                     </div>
+
+                    <a href="/eggs"><h2>Huevos</h2></a>
                 </div>
-                <div class="card">
-                    <div class="card-header">Flock</div>
-    
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-    
-                        You are logged in!
+                <div class="dashboard__card">
+                    <div class="">
+                        <img src="{{asset('/img/alimentos_para_aves_inventario.png')}}" alt="Gallina inventario" />
                     </div>
+
+                    <a href="/flocks"><h2>Alimentos</h2></a>
                 </div>
             </section>
         </div>

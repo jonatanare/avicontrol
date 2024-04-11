@@ -1,0 +1,16 @@
+.dashboard__card {
+  border-radius: 1px;
+  max-width: 250px;
+}
+.dashboard__card img {
+  border-radius: 16px;
+  max-width: 100%;
+  height: auto;
+}
+.dashboard__card a {
+  color: black;
+  text-align: center;
+}
+.dashboard__card h2 {
+  margin-top: 14px;
+}/*# sourceMappingURL=dashboard.css.map */

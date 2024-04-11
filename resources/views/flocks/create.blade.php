@@ -16,19 +16,28 @@
                 </div>
                 <div class="mb-3">
                     <label for="flock_purpose" class="form-label">Propósito de rebaño</label>
-                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="flock_purpose">
+                    <select name="flock_purpose" id="flock_purpose" class="custom-select">
+                        <option value="eggs">Huevos</option>
+                        <option value="meat">Carne</option>
+                        <option value="both">Ambos</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="acquisition_type" class="form-label">Tipo de adquisición</label>
-                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="acquisition_type">
+                    <select name="acquisition_type" id="acquisition_type" class="custom-select">
+                        <option value="purchasedType">Comprado</option>
+                        <option value="giftType">Recibido como regalo</option>
+                        <option value="donationType">Recibido como donacion</option>
+                        <option value="other">Otra</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="date_of_acquisition" class="form-label">Fecha de adquisición</label>
                     <input type="date" class="form-control" placeholder="Ingresa el nombre" name="date_of_acquisition">
                 </div>
                 <div class="mb-3">
-                    <label for="aditional_notes" class="form-label">Nota adicional</label>
-                    <textarea name="aditional_notes" id="aditional_notes" cols="30" rows="10" class="form-control"></textarea>
+                    <label for="additional_notes" class="form-label">Nota adicional</label>
+                    <textarea name="additional_notes" id="additional_notes" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </form>

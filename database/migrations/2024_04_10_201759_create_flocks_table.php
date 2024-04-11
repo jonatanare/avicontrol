@@ -17,8 +17,8 @@ class CreateFlocksTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('number_of_chickens');
-            $table->string('flock_purpose');
-            $table->string('acquisition_type');
+            $table->enum('flock_purpose', ['eggs','meat','both']);
+            $table->enum('acquisition_type', ['purchasedType', 'giftType','donationType', 'other']);
             $table->date('date_of_acquisition');
             $table->text('additional_notes')->nullable();
             $table->timestamps();

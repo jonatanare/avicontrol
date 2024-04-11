@@ -15,7 +15,7 @@ class FlockController extends Controller
     public function index()
     {
         $flocks = Flock::all();
-        dd($flocks);
+        // dd($flocks);
         return view('flocks.index', compact('flocks'));
     }
 
@@ -35,27 +35,40 @@ class FlockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        // dd($request);
+    public function store(Request $request) {
+		//registrar el nuevo producto en la bd
+		//  dd($request->all());
+		$messages = [
+			'name.required' => 'Es necesario ingresar un nombre para el producto',
+			'number_of_chickens.required' => 'Este campo es obligatorio',
+			'flock_purpose.required' => 'Este campo es obligatorio',
+			'acquisition_type.required' => 'Este campo es obligatorio',
+			'date_of_acquisition.required' => 'Este campo es obligatorio',
+            'additional_notes.required' => 'Este campo es obligatorio'
+		];
+		$rules = [
+			'name' => 'required',
+			'number_of_chickens' => 'required',
+			'flock_purpose' => 'required',
+			'acquisition_type' => 'required',
+			'date_of_acquisition' => 'required',
+			'additional_notes' => 'required',
+		];
 
-        $validatedData = $request->validate([
-            'name'=> 'required|max:255',
-            'number_of_chickens'=> 'required|max:255',
-            'flock_purpose'=> 'required|max:255',
-            'acquisition_type'=> 'required|max:255',
-            'date_of_acquisition'=> 'required|date|max:255',
-            'aditional_notes'=> 'required|max:255'
-        ]);
+		$this->validate($request, $rules, $messages);
 
-        try {
-            $flock = Flock::create($validatedData);
-            dd($flock);
-            return redirect()->route('flocks.index')->with('success', 'Flock created successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error creating Flock: ' . $e->getMessage());
-        }
-    }
+		$product = new Flock();
+		$product->name = $request->input('name');
+		$product->number_of_chickens = $request->input('number_of_chickens');
+		$product->flock_purpose = $request->input('flock_purpose');
+		$product->acquisition_type = $request->input('acquisition_type');
+		$product->date_of_acquisition = $request->input('date_of_acquisition');
+		$product->additional_notes = $request->input('additional_notes');
+		$product->save(); //ejecutar una consulta INSERT a la tabla productos
+
+		return redirect('/flocks');
+
+	}
 
     /**
      * Display the specified resource.
