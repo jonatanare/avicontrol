@@ -4,15 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1>Ajustar cantidad de feed</h1>
+                <h1>Ajustar cantidad de huevos</h1>
 
-                <form id='adjustForm' method="POST">
+                <form id='adjustForm' method="post">
                     @csrf
                     <div class="mb-3">
                         <label for="feed" class="form-label">Lote</label>
-                        <select name="feed" id="feed" class="custom-select">
-                            @foreach ($feeds as $feed)
-                                <option value="{{$feed->id}}">{{$feed->feed_type}}</option>
+                        <select name="egg" id="egg" class="custom-select">
+                            @foreach ($eggs as $egg)
+                                <option value="{{$egg->id}}">{{$egg->id}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -39,10 +39,10 @@
     <script>
         document.getElementById('adjustForm').addEventListener('submit', function(event) {
             // Obtener el feed ID seleccionado
-            const feedId = document.getElementById('feed').value;
+            const feedId = document.getElementById('egg').value;
 
             // Modificar el action del formulario para incluir el feed ID en la URL
-            this.action = `/feeds/adjust/${feedId}`;
+            this.action = `/eggs/adjust/${feedId}`;
         });
     </script>
 @endsection

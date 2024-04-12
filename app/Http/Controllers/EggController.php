@@ -109,4 +109,42 @@ class EggController extends Controller
 
         return redirect('/eggs');
     }
+
+    public function showAdjustForm()
+    {
+        $eggs = Egg::all();
+        return view('eggs.adjust-quantity', compact('eggs'));
+    }
+
+    public function adjustQuantity(Request $request, $id)
+    {
+        // Validar la solicitud
+        $validatedData = $request->validate([
+            'adjustment_type' => 'required|in:add,subtract', // 'add' para sumar, 'subtract' para restar
+            'quantity' => 'required|numeric|min:0', // La cantidad a ajustar debe ser un número positivo
+        ]);
+
+        // Obtener el feed
+        $egg = Egg::findOrFail($id);
+
+        // Ajustar la cantidad según el tipo de ajuste
+        if ($validatedData['adjustment_type'] == 'add') {
+            $egg->good_eggs += $validatedData['quantity'];
+        } else if ($validatedData['adjustment_type'] == 'subtract') {
+            // Verifica que la resta no haga que la cantidad sea negativa
+            if ($egg->good_eggs >= $validatedData['quantity']) {
+                $egg->good_eggs -= $validatedData['quantity'];
+            } else {
+                // Si el ajuste es mayor que la cantidad disponible, puedes manejar el error de forma personalizada
+                return redirect()->route('eggs.show', $id)
+                    ->withErrors('No puedes restar más cantidad de la que está disponible.');
+            }
+        }
+
+        // Guardar los cambios
+        $egg->update();
+
+        // Redireccionar a la vista del feed con un mensaje de éxito
+        return redirect()->route('eggs.show', $id)->with('success', 'Cantidad ajustada correctamente');
+    }
 }

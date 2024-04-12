@@ -37,7 +37,7 @@ class FlockController extends Controller
      */
     public function store(Request $request) {
 		//registrar el nuevo producto en la bd
-		//  dd($request->all());
+		// dd($request->all());
 		$messages = [
 			'name.required' => 'Es necesario ingresar un nombre para el producto',
 			'number_of_chickens.required' => 'Este campo es obligatorio',
@@ -118,5 +118,43 @@ class FlockController extends Controller
         $flock->delete();
 
         return redirect('/flocks');
+    }
+
+    public function showAdjustForm()
+    {
+        $flocks = Flock::all();
+        return view('flocks.adjust-quantity', compact('flocks'));
+    }
+
+    public function adjustQuantity(Request $request, $id)
+    {
+        // Validar la solicitud
+        $validatedData = $request->validate([
+            'adjustment_type' => 'required|in:add,subtract', // 'add' para sumar, 'subtract' para restar
+            'quantity' => 'required|numeric|min:0', // La cantidad a ajustar debe ser un número positivo
+        ]);
+
+        // Obtener el feed
+        $flock = Flock::findOrFail($id);
+
+        // Ajustar la cantidad según el tipo de ajuste
+        if ($validatedData['adjustment_type'] == 'add') {
+            $flock->number_of_chickens += $validatedData['quantity'];
+        } else if ($validatedData['adjustment_type'] == 'subtract') {
+            // Verifica que la resta no haga que la cantidad sea negativa
+            if ($flock->number_of_chickens >= $validatedData['quantity']) {
+                $flock->number_of_chickens -= $validatedData['quantity'];
+            } else {
+                // Si el ajuste es mayor que la cantidad disponible, puedes manejar el error de forma personalizada
+                return redirect()->route('flocks.show', $id)
+                    ->withErrors('No puedes restar más cantidad de la que está disponible.');
+            }
+        }
+
+        // Guardar los cambios
+        $flock->update();
+
+        // Redireccionar a la vista del feed con un mensaje de éxito
+        return redirect()->route('flocks.show', $id)->with('success', 'Cantidad ajustada correctamente');
     }
 }

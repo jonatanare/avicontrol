@@ -6,13 +6,13 @@
             <div class="col-12">
                 <h1>Ajustar cantidad de feed</h1>
 
-                <form id='adjustForm' method="POST">
+                <form id='adjustForm' method="PATCH">
                     @csrf
                     <div class="mb-3">
-                        <label for="feed" class="form-label">Lote</label>
-                        <select name="feed" id="feed" class="custom-select">
-                            @foreach ($feeds as $feed)
-                                <option value="{{$feed->id}}">{{$feed->feed_type}}</option>
+                        <label for="flock" class="form-label">Lote</label>
+                        <select name="flock" id="flock" class="custom-select">
+                            @foreach ($flocks as $flock)
+                                <option value="{{$flock->id}}">{{$flock->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -39,10 +39,10 @@
     <script>
         document.getElementById('adjustForm').addEventListener('submit', function(event) {
             // Obtener el feed ID seleccionado
-            const feedId = document.getElementById('feed').value;
+            const feedId = document.getElementById('flock').value;
 
             // Modificar el action del formulario para incluir el feed ID en la URL
-            this.action = `/feeds/adjust/${feedId}`;
+            this.action = `/flocks/adjust/${feedId}`;
         });
     </script>
 @endsection

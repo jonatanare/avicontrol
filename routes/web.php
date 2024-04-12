@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Rutas flocks
+    Route::post('/flocks/adjust/{id}', [FlockController::class, 'adjustQuantity'])->name('flocks.adjust');
+    Route::get('/flocks/adjust', [FlockController::class, 'showAdjustForm'])->name('flocks.adjust');
     // Ruta para listar todos los flocks (index)
     Route::get('/flocks', [FlockController::class, 'index'])->name('flocks.index');
 
@@ -51,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/flocks/{id}', [FlockController::class, 'destroy'])->name('flocks.destroy');
 
     // Rutas eggs
+    Route::post('/eggs/adjust/{id}', [EggController::class, 'adjustQuantity'])->name('eggs.adjust');
+    Route::get('/eggs/adjust', [EggController::class, 'showAdjustForm'])->name('eggs.adjust');
+
     // Ruta para listar todos los registros de eggs (index)
     Route::get('/eggs', [EggController::class, 'index'])->name('eggs.index');
 
